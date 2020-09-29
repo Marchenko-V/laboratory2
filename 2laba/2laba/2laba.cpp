@@ -29,6 +29,7 @@
 #include <iostream>
 #include<malloc.h>
 #include<string.h>
+#include <Windows.h>
 #define LEN 100
 #define standart "no_name"
 
@@ -59,7 +60,15 @@ wallet input()
     return now;
 }
 
+void print(wallet now) {
+    printf("rubles: %d", now.rubles);
+    printf("dollars: %d", now.dollars);
+    printf("euros: %d", now.euros);
+}
+
 int main()
 {
+    SetConsoleCP(1251);
+    SetConsoleOutputCP(1251);
     std::cout << "Hello World!\n";
 }
