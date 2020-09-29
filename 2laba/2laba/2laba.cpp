@@ -205,4 +205,6 @@ int main()
     getch();
     system("cls");
     puts("спасибо, что воспользовались услугой нашей компании!");
+    free(now_dinamic);
+    free(new_dinamic);
 }
