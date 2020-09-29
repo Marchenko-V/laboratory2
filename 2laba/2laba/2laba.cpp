@@ -35,17 +35,29 @@
 struct wallet{
     int rubles;
     int dollars;
-    int euro;
+    int euros;
 };
 
 wallet init(int r, int d, int e) {
     wallet now;
     now.rubles = r;
     now.dollars = d;
-    now.euro = e;
+    now.euros = e;
     return now;
 }
 
+wallet input()
+{
+    wallet now;
+    now = init(0, 0, 0);
+    printf("enter the amount of rubles: ");
+    scanf("%d", &now.rubles);
+    printf("enter the amount of dollars: ");
+    scanf("%d", &now.dollars);
+    printf("enter the amount of euros: ");
+    scanf("%d", &now.euros);
+    return now;
+}
 
 int main()
 {
