@@ -132,6 +132,8 @@ int main()
     now = init(0, 0, 0);
     print(now);
     puts("но сейчас Вам придется рассказать всем о своем благосостоянии");
+    getch();
+    system("cls");
     now = input();
     puts("теперь все знают, что в Вашем кошельке вот сколько деняк!");
     print(now);
@@ -153,12 +155,41 @@ int main()
     new_ = input();
     puts("ого, так вот как выглядит ваш семейный бюджет");
     add_wallets(now, new_);
+
     //работа с динамической памятью
-    
-    wallet* new_dinamic;
-
-    
-
-
-   
+    system("cls");
+    wallet* now_dinamic, *new_dinamic;
+    puts("а теперь то же самое, только с динамической памятью");
+    system("cls");
+    now_dinamic = (wallet*)malloc(sizeof(wallet));
+    new_dinamic = (wallet*)malloc(sizeof(wallet));
+    puts("пока что в вашем кошельке нет деняк:");
+    now_dinamic = &(init(0, 0, 0));
+    print(* new_dinamic);
+    puts("но сейчас Вам придется рассказать всем о своем благосостоянии");
+    now_dinamic = &(input());
+    puts("теперь все знают, что в Вашем кошельке вот сколько деняк!");
+    print(* new_dinamic);
+    puts("а сколько же это в рублях?");
+    float rub;
+    rub = convert(* now_dinamic);
+    printf("оказывается, в Вашем кошельке %f рублей", rub);
+    puts("не желаете ли вы что-нибудь приобрести? (1 - да)");
+    int f;
+    if (f == 1)
+    {
+        puts("что ж, подходите к выбору осознанно, чтобы не уйти в минус");
+        now_dinamic = &(purchase(* now_dinamic));
+    }
+    else
+        puts("ну ладно, уговаривать не стану");
+    puts("а теперь придется ввести содержимое кошелька Вашей жены");
+    new_dinamic = &(input());
+    puts("ого, так вот как выглядит ваш семейный бюджет");
+    add_wallets(* now_dinamic, * new_dinamic);
+    printf("на всякий случай выведу адреса: ");
+    printf("Ваш кошелек можно найти вот тут: %p", now_dinamic);
+    printf("а кошелек Вашей жены здесь: %p", new_dinamic);
+    system("cls");
+    puts("");
 }
