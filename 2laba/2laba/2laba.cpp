@@ -34,12 +34,12 @@
 #define standart "no_name"
 
 struct wallet{
-    int rubles;
-    int dollars;
-    int euros;
+    float rubles;
+    float dollars;
+    float euros;
 };
 
-wallet init(int r, int d, int e) {
+wallet init(float r, float d, float e) {
     wallet now;
     now.rubles = r;
     now.dollars = d;
@@ -51,19 +51,19 @@ wallet input()
 {
     wallet now;
     now = init(0, 0, 0);
-    printf("enter the amount of rubles: ");
-    scanf("%d", &now.rubles);
-    printf("enter the amount of dollars: ");
-    scanf("%d", &now.dollars);
-    printf("enter the amount of euros: ");
-    scanf("%d", &now.euros);
+    printf("Введите количество рублей: ");
+    scanf("%f", &now.rubles);
+    printf("Введите количество долларов: ");
+    scanf("%f", &now.dollars);
+    printf("Введите количество долларов: ");
+    scanf("%f", &now.euros);
     return now;
 }
 
 void print(wallet now) {
-    printf("rubles: %d\n", now.rubles);
-    printf("dollars: %d\n", now.dollars);
-    printf("euros: %d\n", now.euros);
+    printf("Рублей: %f\n", now.rubles);
+    printf("Долларов: %f\n", now.dollars);
+    printf("Евро: %f\n", now.euros);
 }
 
 void add_wallets(wallet now, wallet new_dinamic) {
@@ -73,6 +73,18 @@ void add_wallets(wallet now, wallet new_dinamic) {
     summ_wallet.euros = now.euros + new_dinamic.euros;
     printf("В двух кошельках: \n");
     print(summ_wallet);
+}
+
+//доллар - 80 руб, евро - 93
+
+wallet convert(wallet now) {                //функция для подсчета рублей в кошельке
+    float rub;
+    rub = now.rubles + (now.dollars * 80) + (now.euros * 93);
+    printf("В вашем кошельке %f рублей", rub);
+}
+
+wallet purchase(wallet now) {
+
 }
 
 int main()
