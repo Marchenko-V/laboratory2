@@ -146,6 +146,7 @@ int main()
     puts("не желаете ли вы что-нибудь приобрести? (1 - да)");
     int f;
     scanf("%d", &f);
+    fflush(stdin);
     if (f == 1)
     {
         puts("что ж, подходите к выбору осознанно, чтобы не уйти в минус");
@@ -172,19 +173,24 @@ int main()
     new_dinamic = (wallet*)malloc(sizeof(wallet));
     puts("пока что в вашем кошельке нет деняк:");
     now_dinamic = &(init(0, 0, 0));
-    print(*new_dinamic);
+    print(*now_dinamic);
     puts("но сейчас Вам придется рассказать всем о своем благосостоянии");
+    getch();
     now_dinamic = &(input());
     puts("теперь все знают, что в Вашем кошельке вот сколько деняк!");
-    print(*new_dinamic);
+    getch();
+    print(*now_dinamic);
     puts("а сколько же это в рублях?");
+    getch();
     rub = convert(*now_dinamic);
-    printf("оказывается, в Вашем кошельке %f рублей", rub);
-    puts("не желаете ли вы что-нибудь приобрести? (1 - да)");
+    printf("оказывается, в Вашем кошельке %f рублей \n", rub);
+    getch();
+    puts("не желаете ли вы что-нибудь приобрести? (1 - да, 0 или любое число - нет)");
     scanf("%d", &f);
+    fflush(stdin);
     if (f == 1)
     {
-        puts("что ж, подходите к выбору осознанно, чтобы не уйти в минус");
+        puts("что ж, подходите к выбору осознанно, чтобы не уйти в минус\n");
         now_dinamic = &(purchase(*now_dinamic));
     }
     else
@@ -193,9 +199,9 @@ int main()
     new_dinamic = &(input());
     puts("ого, так вот как выглядит ваш семейный бюджет");
     add_wallets(*now_dinamic, *new_dinamic);
-    printf("на всякий случай выведу адреса: ");
-    printf("Ваш кошелек можно найти вот тут: %p", now_dinamic);
-    printf("а кошелек Вашей жены здесь: %p", new_dinamic);
+    printf("на всякий случай выведу адреса\n ");
+    printf("Ваш кошелек можно найти вот тут: %p\n", now_dinamic);
+    printf("а кошелек Вашей жены здесь: %p\n", new_dinamic);
     getch();
     system("cls");
     puts("спасибо, что воспользовались услугой нашей компании!");
