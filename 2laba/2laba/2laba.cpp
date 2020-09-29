@@ -30,6 +30,7 @@
 #include<malloc.h>
 #include<string.h>
 #include<locale.h>
+#include<conio.h>
 #include <Windows.h>
 #define LEN 100
 
@@ -67,11 +68,11 @@ void print(wallet now) {
     printf("евро: %f\n", now.euros);
 }
 
-void add_wallets(wallet now, wallet new_dinamic) {
+void add_wallets(wallet now, wallet new_) {
     wallet summ_wallet;
-    summ_wallet.rubles = now.rubles + new_dinamic.rubles;
-    summ_wallet.dollars = now.dollars + new_dinamic.dollars;
-    summ_wallet.euros = now.euros + new_dinamic.euros;
+    summ_wallet.rubles = now.rubles + new_.rubles;
+    summ_wallet.dollars = now.dollars + new_.dollars;
+    summ_wallet.euros = now.euros + new_.euros;
     printf("в двух кошельках: \n");
     print(summ_wallet);
 }
@@ -103,7 +104,7 @@ wallet purchase(wallet now) {           //такая функция чтобы �
         printf("урааа, Вы купили ");
         puts(product);
         rub = rub - cost;
-        printf("после покупки у вас останется %f рублей", rub);
+        printf("после покупки у вас осталось %f рублей", rub);
     }
     float dol, eu;
     if (((rub / 93) >= now.euros) && (rub > 0));
@@ -126,6 +127,38 @@ int main()
 {
     SetConsoleCP(1251);
     SetConsoleOutputCP(1251);
-    printf("в Вашем кошельке %f рублей", rub);
-    std::cout << "Hello World!\n";
+    wallet now;
+    puts("пока что в вашем кошельке нет деняк:");
+    now = init(0, 0, 0);
+    print(now);
+    puts("но сейчас Вам придется рассказать всем о своем благосостоянии");
+    now = input();
+    puts("теперь все знают, что в Вашем кошельке вот сколько деняк!");
+    print(now);
+    puts("а сколько же это в рублях?");
+    float rub;
+    rub = convert(now);
+    printf("оказывается, в Вашем кошельке %f рублей", rub);
+    puts("не желаете ли вы что-нибудь приобрести? (1 - да)");
+    int f;
+    if (f == 1)
+    {
+        puts("что ж, подходите к выбору осознанно, чтобы не уйти в минус");
+        now = purchase(now);
+    }
+    else
+        puts("ну ладно, уговаривать не стану");
+    puts("а теперь придется ввести содержимое кошелька Вашей жены");
+    wallet new_;
+    new_ = input();
+    puts("ого, так вот как выглядит ваш семейный бюджет");
+    add_wallets(now, new_);
+    //работа с динамической памятью
+    
+    wallet* new_dinamic;
+
+    
+
+
+   
 }
