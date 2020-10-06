@@ -8,19 +8,17 @@
 * меню:
 * 1. Ввод данных:
 * *рубли:
-* *копейки:
 * *доллары:
 * *евро:
 * *если хотите выйти, нажмите ecs
 *
 * 2. Вывод полученных данных:
 * *рубли:
-* *копейки:
 * *доллары:
 * *евро:
 *
 * 3. Посчитать деньги в кошельке в рублях
-* 4. Посчитать все деньги в долларах
+* 4. Реализовать покупку товара
 *
 */
 
@@ -34,13 +32,13 @@
 #include <Windows.h>
 #define LEN 100
 #pragma warning (disable : 4996)
-
-
-struct wallet{
+ 
+typedef struct 
+{
     float rubles;
     float dollars;
     float euros;
-};
+} wallet;
 
 wallet init(float r, float d, float e) {
     wallet now;
