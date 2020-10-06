@@ -7,6 +7,7 @@
 #include <string>
 #include <conio.h>
 #include <malloc.h>
+#define MAX 20
 
 using namespace std;
 
@@ -131,11 +132,11 @@ int main()
 	wallet* wife = new wallet(0, 0, 0);
 	wife->set_wallet(992, 13, 48);
 	cout << "у вашей жены ";
-	wife->output(*wife);
+	wife->output(* wife);
 	cout << "а если посчитать все совместно нажитое, то ";
 	wallet* ours = new wallet(0, 0, 0);
 	ours->set_wallet(0, 0, 0);
-	* ours = ours->add_wallet(* my, *wife);	// до сюда работает вроде нормально, но потом рубли не считает
+	* ours = ours->add_wallet(* my, *wife);	
 	float rub = 0;
 	rub = ours->convert(* ours);
 	rub = ours->purchase(rub);
@@ -145,11 +146,22 @@ int main()
 	int n;
 	cin >> n;
 	wallet* children = new wallet[n];
+	
+	cout << "а теперь введите количество деняк, подаренных вашим детям родственниками" << endl;
+	string* name_children = (string*)calloc(MAX, sizeof(string));
 	for (int i = 0; i < n; i++)
 	{
-		cout << "Адрес кошелька ребенка № " << i + 1 << " " << &children[i] << endl;
+		cout << "Введите имя" << endl;
+		cin >> *(name_children + i);
+		*(children + i) = children[i].input();
+		children[i].output(children[i]);
+	}
+	for (int i = 0; i < n; i++)
+	{
+		cout << "Адрес кошелька ребенка с именем " << name_children[i] << " : " << &children[i] << endl;
 	}
 	delete[] children;
+	free (name_children);
 	wallet* buffer1 = (wallet*)malloc(10 * sizeof(wallet)),      // выделяем память под 10 элементов массива типа int, с предварительной инициализацией   
 		* buffer2 = (wallet*)calloc(10, sizeof(wallet)),        // выделяем память под 10 элементов массива типа int, без инициализации
 		* buffer3 = (wallet*)realloc(buffer2, 50 * sizeof(wallet));// перераспределить память в блоке buffer2, новый размер блока - 50 элементов
