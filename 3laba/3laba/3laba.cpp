@@ -10,16 +10,41 @@
 #define MAX 20
 
 using namespace std;
+class Human
+{
+	//Поля класса
+private:
+	string fio;
+	int age;
+	Wallet wallet;
+	double salary;
+	Human()
+	{
+		fio = "Иванов";
+		age = 0;
+		salary = 0;
+	}
+	Human(string fio, int age, double salary, Wallet wallet)
+	{
+		this->fio = fio;
+		this->age = age;
+		this->salary = salary;
+		this->wallet = wallet;
+	}
+	~Human()
+	{
+
+	};
+	//Методы класса
+};
 
 
-
-class wallet
+class Wallet
 {
 private:
-	float rubles;
-	float dollars;
-	float euros;
-	float rub;		//все денежки только в рублях
+	double rubles;
+	double dollars;
+	double euros;
 public:
 	/*wallet();
 	wallet(float rubles, float dollars, float euros);
@@ -30,24 +55,24 @@ public:
 	float convert(wallet now);
 	float purchase(float rub);
 	void input();
-};
-*/
+};*/
 
-	wallet()
+
+	Wallet()
 	{
 		rubles = 0;
 		dollars = 0;
 		euros = 0;
 	}
 
-	wallet(float rubles, float dollars, float euros)
+	Wallet(float rubles, float dollars, float euros)
 	{
 		this->rubles = rubles;
 		this->dollars = dollars;
 		this->euros = euros;
 	}
 
-	~wallet()
+	~Wallet()
 	{
 
 	}
@@ -59,15 +84,15 @@ public:
 		this->euros = euros;
 	}
 
-	void output(wallet now) {
+	void output(Wallet now) {
 		cout << "в кошельке" << endl;
 		cout << "pублей: " << now.rubles << endl;
 		cout << "долларов: " << now.dollars << endl;
 		cout << "eвро: " << now.euros << endl;
 	}
 
-	wallet add_wallet(wallet my, wallet wife) {
-		wallet ours;
+	Wallet add_wallet(Wallet my, Wallet wife) {
+		Wallet ours;
 		ours.rubles = my.rubles + wife.rubles;
 		ours.dollars = my.dollars + wife.dollars;
 		ours.euros = my.euros + wife.euros;
@@ -76,7 +101,7 @@ public:
 		return ours;
 	}
 
-	float convert(wallet ours) {
+	float convert(Wallet ours) {
 		float rub;
 		cout << "сейчас мы узнаем, сколько же деняк у вас в рублях" << endl;
 		rub = ours.rubles + ours.dollars * 83 + ours.euros * 90;
@@ -101,9 +126,9 @@ public:
 		return rub;
 	}
 
-	wallet input() {
+	Wallet input() {
 		float rubles = 0, dollars = 0, euros = 0;
-		wallet now;
+		Wallet now;
 		cout << "ведите количество рублей: ";
 		cin >> rubles;
 		cout << "количество долларов: ";
@@ -123,18 +148,18 @@ int main()
 	SetConsoleOutputCP(1251);
 	cout << "данная программа создана для того, чтобы считать денежки в кошельке" << endl;
 	cout << "" << endl;
-	wallet* my = new wallet(0,0,0);
+	Wallet* my = new Wallet(0,0,0);
 	cout << "сейчас у вас нет деняк ";
 	my->output(* my);
 	cout << "поэтому вы должны поведать нам о вашем финансовом состоянии" << endl;
 	*my = my->input();
 	my->output(* my);
-	wallet* wife = new wallet(0, 0, 0);
+	Wallet* wife = new Wallet(0, 0, 0);
 	wife->set_wallet(992, 13, 48);
 	cout << "у вашей жены ";
 	wife->output(* wife);
 	cout << "а если посчитать все совместно нажитое, то ";
-	wallet* ours = new wallet(0, 0, 0);
+	Wallet* ours = new Wallet(0, 0, 0);
 	ours->set_wallet(0, 0, 0);
 	* ours = ours->add_wallet(* my, *wife);	
 	float rub = 0;
@@ -145,14 +170,15 @@ int main()
 	cout << "сколько детей вы планируете иметь?" << endl;
 	int n;
 	cin >> n;
-	wallet* children = new wallet[n];
+	Wallet* children = new Wallet[n];
 	
+
 	cout << "а теперь введите количество деняк, подаренных вашим детям родственниками" << endl;
 	string* name_children = (string*)calloc(MAX, sizeof(string));
 	for (int i = 0; i < n; i++)
 	{
 		cout << "Введите имя" << endl;
-		cin >> *(name_children + i);
+		cin >> name_children[i];
 		*(children + i) = children[i].input();
 		children[i].output(children[i]);
 	}
@@ -160,11 +186,11 @@ int main()
 	{
 		cout << "Адрес кошелька ребенка с именем " << name_children[i] << " : " << &children[i] << endl;
 	}
-	delete[] children;
+	//delete[] children;
 	free (name_children);
-	wallet* buffer1 = (wallet*)malloc(10 * sizeof(wallet)),      // выделяем память под 10 элементов массива типа int, с предварительной инициализацией   
-		* buffer2 = (wallet*)calloc(10, sizeof(wallet)),        // выделяем память под 10 элементов массива типа int, без инициализации
-		* buffer3 = (wallet*)realloc(buffer2, 50 * sizeof(wallet));// перераспределить память в блоке buffer2, новый размер блока - 50 элементов
+	Wallet* buffer1 = (Wallet*)malloc(10 * sizeof(Wallet)),      // выделяем память под 10 элементов массива типа int, с предварительной инициализацией   
+		* buffer2 = (Wallet*)calloc(10, sizeof(Wallet)),        // выделяем память под 10 элементов массива типа int, без инициализации
+		* buffer3 = (Wallet*)realloc(buffer2, 50 * sizeof(Wallet));// перераспределить память в блоке buffer2, новый размер блока - 50 элементов
 
 	free(buffer1);                                              // высвобождаем блок памяти buffer1
 	free(buffer3);
@@ -172,3 +198,6 @@ int main()
 
 
 }
+
+
+
