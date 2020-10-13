@@ -30,8 +30,7 @@ public:
 		this->money = money;
 	};
 
-	card salary(card now, float salary) {
-		double salary;
+	card salary_(card now, double salary) {
 		money += salary;
 		cout << "поздравляю,  вам начислена зарплата в размере " << salary << endl;
 		cout << "баланс вашей карты составляет" << money << endl;
@@ -63,7 +62,7 @@ public:
 	card add_card(card my, card wife) {
 		card ours;
 		ours.money = my.money + wife.money;
-		return ours;
+		return ours.money;
 	};
 
 	void print() {
@@ -126,6 +125,7 @@ public:
 		money.print();
 	};
 
+/*
 	Wallet add_wallet(Wallet my, Wallet wife, card myy, card wifee) {
 		Wallet ours;
 		ours.rubles = my.rubles + wife.rubles;
@@ -137,9 +137,9 @@ public:
 		output();
 		return ours;
 	};
-
+*/
 	float convert(Wallet ours) {
-		float rub;
+		double rub;
 		cout << "сейчас мы узнаем, сколько же деняк у вас в рублях" << endl;
 		rub = ours.rubles + ours.dollars * 83 + ours.euros * 90;
 		cout << "оказывается, в вашем кошельке все это время было " << rub << " рублей" << endl;
@@ -187,6 +187,14 @@ public:
 		return ours;
 	};
 
+	Wallet salary(Wallet now)
+	{
+		cout << "введите заработную плату: ";
+		double slr;
+		cin >> slr;
+		money.salary_(now.money, slr);
+		return now;
+	};
 };
 
 int main()
@@ -197,19 +205,22 @@ int main()
 	cout << "данная программа создана для того, чтобы считать денежки в кошельке и на карте" << endl;
 	Wallet* my = new Wallet(0,0,0);
 	cout << "сейчас у вас нет деняк ";
-	my->output(* my);
+	my->output();
 	cout << "поэтому вы должны поведать нам о вашем финансовом состоянии" << endl;
-	*my = my->input();
-	my->output(* my);
+	my->input();
+	my->output();
+	* my = my->salary(* my);
 	Wallet* wife = new Wallet(0, 0, 0);
-	wife->set_wallet(992, 13, 48);
+	wife->set_wallet(1992, 13, 48, 12345);
 	cout << "у вашей жены ";
-	wife->output(* wife);
+	wife->output();
 	cout << "а если посчитать все совместно нажитое, то ";
 	Wallet* ours = new Wallet(0, 0, 0);
-	ours->set_wallet(0, 0, 0);
+	ours->set_wallet(0, 0, 0, 0);
 	* ours = ours->add_wallet(* my, *wife);	
-	cout << "введите вашу зарплату" << endl;
+	//cout << "введите вашу зарплату" << endl;
+	//double salar;
+	//cin >> salar;
 	
 	float rub = 0;
 	rub = ours->convert(* ours);
@@ -228,8 +239,8 @@ int main()
 	{
 		cout << "Введите имя" << endl;
 		cin >> name_children[i];
-		*(children + i) = children[i].input();
-		children[i].output(children[i]);
+		children[i].input();
+		children[i].output();
 	}
 	for (int i = 0; i < n; i++)
 	{
