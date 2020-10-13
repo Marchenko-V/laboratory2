@@ -10,34 +10,48 @@
 #define MAX 20
 
 using namespace std;
-class Human
-{
-	//Поля класса
+
+class card {
 private:
-	string fio;
-	int age;
-	Wallet wallet;
-	double salary;
-	Human()
-	{
-		fio = "Иванов";
-		age = 0;
-		salary = 0;
+	double money;
+public:
+	card() {
+		money = 0;
 	}
-	Human(string fio, int age, double salary, Wallet wallet)
-	{
-		this->fio = fio;
-		this->age = age;
-		this->salary = salary;
-		this->wallet = wallet;
-	}
-	~Human()
-	{
 
-	};
-	//Методы класса
+	card(double m) {
+		money = m;
+	}
+	~card()
+	{
+	}
+
+	card salary(card now,  float salary) {
+		double salary;
+		money += salary;
+		cout << "поздравляю,  вам начислена зарплата в размере " << salary << endl;
+		cout << "баланс вашей карты составляет" << money << endl;
+		return now;
+	}
+
+	card purchase(card now) {
+		cout << "что хотите приобрести?" << endl;
+		string purchase_ = "";
+		cin >> purchase_;
+		cout << "а сколько это стоит?" << endl;
+		float price;
+		cin >> price;
+		if (price > money)
+			cout << "недостаточно средств" << endl;
+		else {
+			money = money - price;
+			cout << "поздравляю, вы купили " << purchase_ << endl;
+			cout << "у вас осталось " << money << " рублей в кошельке" << endl;
+		}
+		return now;
+	}
+	
 };
-
 
 class Wallet
 {
@@ -45,6 +59,7 @@ private:
 	double rubles;
 	double dollars;
 	double euros;
+	card money;
 public:
 	/*wallet();
 	wallet(float rubles, float dollars, float euros);
@@ -65,7 +80,7 @@ public:
 		euros = 0;
 	}
 
-	Wallet(float rubles, float dollars, float euros)
+	Wallet(double rubles, double dollars, double euros)
 	{
 		this->rubles = rubles;
 		this->dollars = dollars;
@@ -77,7 +92,7 @@ public:
 
 	}
 
-	void set_wallet(float rubles, float dollars, float euros)
+	void set_wallet(double rubles, double dollars, double euros)
 	{
 		this->rubles = rubles;
 		this->dollars = dollars;
@@ -109,7 +124,20 @@ public:
 		return rub;
 	}
 
-	float purchase(float rub) {
+	Wallet input() {
+		double rubles = 0, dollars = 0, euros = 0;
+		Wallet now;
+		cout << "ведите количество рублей: ";
+		cin >> rubles;
+		cout << "количество долларов: ";
+		cin >> dollars;
+		cout << "количество евро: ";
+		cin >> euros;
+		now.set_wallet(rubles, dollars, euros);
+		return now;
+	}
+
+	double purchase(double rub) {
 		cout << "что хотите приобрести?" << endl;
 		string purchase_ = "";
 		cin >> purchase_;
@@ -126,28 +154,24 @@ public:
 		return rub;
 	}
 
-	Wallet input() {
-		float rubles = 0, dollars = 0, euros = 0;
-		Wallet now;
-		cout << "ведите количество рублей: ";
-		cin >> rubles;
-		cout << "количество долларов: ";
-		cin >> dollars;
-		cout << "количество евро: ";
-		cin >> euros;
-		now.set_wallet(rubles, dollars, euros);
-		return now;
+	Wallet add_wallet(Wallet my, Wallet wife) {
+		Wallet ours;
+		ours.rubles = my.rubles + wife.rubles;
+		ours.dollars = my.dollars + wife.dollars;
+		ours.euros = my.euros + wife.euros;
+		cout << "после сложения ваших деняк ";
+		output(ours);
+		return ours;
 	}
-};
 
+};
 
 int main()
 {
 	system("color f0");
 	SetConsoleCP(1251);
 	SetConsoleOutputCP(1251);
-	cout << "данная программа создана для того, чтобы считать денежки в кошельке" << endl;
-	cout << "" << endl;
+	cout << "данная программа создана для того, чтобы считать денежки в кошельке и на карте" << endl;
 	Wallet* my = new Wallet(0,0,0);
 	cout << "сейчас у вас нет деняк ";
 	my->output(* my);
@@ -162,6 +186,8 @@ int main()
 	Wallet* ours = new Wallet(0, 0, 0);
 	ours->set_wallet(0, 0, 0);
 	* ours = ours->add_wallet(* my, *wife);	
+	cout << 
+	
 	float rub = 0;
 	rub = ours->convert(* ours);
 	rub = ours->purchase(rub);
