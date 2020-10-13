@@ -17,21 +17,30 @@ private:
 public:
 	card() {
 		money = 0;
-	}
+	};
 
 	card(double m) {
 		money = m;
-	}
+	};
 	~card()
 	{
-	}
+	};
 
-	card salary(card now,  float salary) {
+	void set_card(double money) {
+		this->money = money;
+	};
+
+	card salary(card now, float salary) {
 		double salary;
 		money += salary;
 		cout << "поздравляю,  вам начислена зарплата в размере " << salary << endl;
 		cout << "баланс вашей карты составляет" << money << endl;
 		return now;
+	};
+
+	void input_() {
+		cout << "введите количество деняк на карте: ";
+		cin >> money;
 	}
 
 	card purchase(card now) {
@@ -49,8 +58,17 @@ public:
 			cout << "у вас осталось " << money << " рублей в кошельке" << endl;
 		}
 		return now;
-	}
-	
+	};
+
+	card add_card(card my, card wife) {
+		card ours;
+		ours.money = my.money + wife.money;
+		return ours;
+	};
+
+	void print() {
+		cout << "на карте: " << money << endl;
+	};
 };
 
 class Wallet
@@ -78,43 +96,47 @@ public:
 		rubles = 0;
 		dollars = 0;
 		euros = 0;
-	}
+	};
 
 	Wallet(double rubles, double dollars, double euros)
 	{
 		this->rubles = rubles;
 		this->dollars = dollars;
 		this->euros = euros;
-	}
+	};
 
 	~Wallet()
 	{
 
-	}
+	};
 
-	void set_wallet(double rubles, double dollars, double euros)
+	void set_wallet(double rubles, double dollars, double euros, card money)
 	{
 		this->rubles = rubles;
 		this->dollars = dollars;
 		this->euros = euros;
-	}
+		this->money = money;
+	};
 
-	void output(Wallet now) {
+	void output() {
 		cout << "в кошельке" << endl;
-		cout << "pублей: " << now.rubles << endl;
-		cout << "долларов: " << now.dollars << endl;
-		cout << "eвро: " << now.euros << endl;
-	}
+		cout << "pублей: " << rubles << endl;
+		cout << "долларов: " << dollars << endl;
+		cout << "eвро: " << euros << endl;
+		money.print();
+	};
 
-	Wallet add_wallet(Wallet my, Wallet wife) {
+	Wallet add_wallet(Wallet my, Wallet wife, card myy, card wifee) {
 		Wallet ours;
 		ours.rubles = my.rubles + wife.rubles;
 		ours.dollars = my.dollars + wife.dollars;
 		ours.euros = my.euros + wife.euros;
+		ours.money.add_card(myy, wifee);
+
 		cout << "после сложения ваших деняк ";
-		output(ours);
+		output();
 		return ours;
-	}
+	};
 
 	float convert(Wallet ours) {
 		float rub;
@@ -122,20 +144,20 @@ public:
 		rub = ours.rubles + ours.dollars * 83 + ours.euros * 90;
 		cout << "оказывается, в вашем кошельке все это время было " << rub << " рублей" << endl;
 		return rub;
-	}
+	};
 
-	Wallet input() {
+	void input() {
 		double rubles = 0, dollars = 0, euros = 0;
-		Wallet now;
+		card money;
 		cout << "ведите количество рублей: ";
 		cin >> rubles;
 		cout << "количество долларов: ";
 		cin >> dollars;
 		cout << "количество евро: ";
 		cin >> euros;
-		now.set_wallet(rubles, dollars, euros);
-		return now;
-	}
+		money.input_();
+		set_wallet(rubles, dollars, euros, money);
+	};
 
 	double purchase(double rub) {
 		cout << "что хотите приобрести?" << endl;
@@ -152,17 +174,18 @@ public:
 			cout << "у вас осталось " << rub << " рублей в кошельке" << endl;
 		}
 		return rub;
-	}
+	};
 
 	Wallet add_wallet(Wallet my, Wallet wife) {
 		Wallet ours;
 		ours.rubles = my.rubles + wife.rubles;
 		ours.dollars = my.dollars + wife.dollars;
 		ours.euros = my.euros + wife.euros;
+		ours.money.add_card(my.money, wife.money);
 		cout << "после сложения ваших деняк ";
-		output(ours);
+		ours.output();
 		return ours;
-	}
+	};
 
 };
 
@@ -186,7 +209,7 @@ int main()
 	Wallet* ours = new Wallet(0, 0, 0);
 	ours->set_wallet(0, 0, 0);
 	* ours = ours->add_wallet(* my, *wife);	
-	cout << 
+	cout << "введите вашу зарплату" << endl;
 	
 	float rub = 0;
 	rub = ours->convert(* ours);
